@@ -1,0 +1,214 @@
+DOCTYPE html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyBoost - Student Tools</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f5f7fb;
+  color: #222;
+}
+
+header {
+  background: linear-gradient(135deg,#5b5cff,#7c3aed);
+  color: white;
+  text-align: center;
+  padding: 45px 20px;
+}
+
+header h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 18px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #5b5cff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #4445d8;
+}
+
+.result {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  margin-top: 40px;
+  background: #111827;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>📚 StudyBoost</h1>
+  <p>Free Smart Tools for Students</p>
+</header>
+
+<div class="container">
+
+<div class="tools">
+
+<!-- Percentage -->
+<div class="card">
+  <h2>📊 Percentage Calculator</h2>
+
+  <input id="obtained" type="number" placeholder="Obtained Marks">
+  <input id="total" type="number" placeholder="Total Marks">
+
+  <button onclick="percentage()">Calculate</button>
+
+  <div class="result" id="percentResult"></div>
+</div>
+
+<!-- Average -->
+<div class="card">
+  <h2>🧮 Average Calculator</h2>
+
+  <input id="marks" type="text" placeholder="Example: 80, 75, 90">
+
+  <button onclick="average()">Calculate</button>
+
+  <div class="result" id="averageResult"></div>
+</div>
+
+<!-- Timetable -->
+<div class="card">
+  <h2>📚 Study Timetable</h2>
+
+  <input id="subject" type="text" placeholder="Enter Subject">
+
+  <button onclick="addSubject()">Add Subject</button>
+
+  <div class="result" id="subjects"></div>
+</div>
+
+</div>
+</div>
+
+<footer>
+  © 2026 StudyBoost | Made for Students ❤️
+</footer>
+
+<script>
+
+function percentage() {
+
+  let obtained = Number(document.getElementById("obtained").value);
+  let total = Number(document.getElementById("total").value);
+
+  if(total <= 0) {
+    document.getElementById("percentResult").innerText =
+    "Please enter valid marks.";
+    return;
+  }
+
+  let result = (obtained / total) * 100;
+
+  document.getElementById("percentResult").innerText =
+  "Your Percentage: " + result.toFixed(2) + "%";
+}
+
+
+function average() {
+
+  let text = document.getElementById("marks").value;
+
+  let numbers = text
+    .split(",")
+    .map(Number)
+    .filter(n => !isNaN(n));
+
+  if(numbers.length === 0) {
+    document.getElementById("averageResult").innerText =
+    "Please enter marks.";
+    return;
+  }
+
+  let sum = numbers.reduce((a,b) => a+b,0);
+  let avg = sum / numbers.length;
+
+  document.getElementById("averageResult").innerText =
+  "Average Marks: " + avg.toFixed(2);
+}
+
+
+function addSubject() {
+
+  let subject = document.getElementById("subject").value;
+
+  if(subject.trim() === "") return;
+
+  let list = document.getElementById("subjects");
+
+  list.innerHTML += "📖 " + subject + "<br>";
+
+  document.getElementById("subject").value = "";
+}
+
+</script>
+
+</body>
+</html>
